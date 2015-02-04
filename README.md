@@ -1,3 +1,6 @@
+[![Build
+Status](https://snap-ci.com/clojure-glasgow/loneworkercheckin/branch/master/build_image)](https://snap-ci.com/clojure-glasgow/loneworkercheckin/branch/master)
+
 # checkin
 
 A Clojure library designed to ... well, that part is up to you.
