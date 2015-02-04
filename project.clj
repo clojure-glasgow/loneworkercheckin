@@ -11,4 +11,5 @@
                            [clj-oauth2 "0.2.0"]
                            ]
             :plugins [[lein-ring "0.9.1"]]
-            :ring {:handler checkin.handler/app})
+            :ring {:handler checkin.handler/app
+                   :uberwar-name "loneworkercheckin.war"})
