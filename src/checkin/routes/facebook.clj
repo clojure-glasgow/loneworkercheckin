@@ -1,9 +1,8 @@
-(ns exampleapp.routes.facebook
+(ns checkin.routes.facebook
   (:use compojure.core)
   (:require [clj-oauth2.client :as oauth2]
-            [noir.response :as resp]
             [clj-http.client :as client]
-            [cheshire.core :as parse]))
+            [ring.util.response :as response]))
 
 (def facebook-user
   (atom {:facebook-id "" :facebook-name "" :facebook-email ""}))
@@ -22,5 +21,8 @@
    :scope ["email"]
    :grant-type "authorization_code"})
 
-(resp/redirect
-  (:uri (oauth2/make-auth-request facebook-oauth2)))
+;(resp/redirect
+;  (:uri (oauth2/make-auth-request facebook-oauth2)))
+
+(defn login []
+(response/redirect (:uri (oauth2/make-auth-request facebook-oauth2))))
