@@ -9,6 +9,7 @@
                            [compojure "1.3.1"]
                            [ring/ring-defaults "0.1.2"]
                            [clj-oauth2 "0.2.0"]
+                           [cheshire "5.4.0"]
                            ]
             :plugins [[lein-ring "0.9.1"]]
             :ring {:handler checkin.handler/app
