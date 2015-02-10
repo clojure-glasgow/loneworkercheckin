@@ -1,5 +1,6 @@
 (ns checkin.routes.facebook
-  (:use compojure.core)
+  (:use [compojure.core]
+        [clojure.walk])
   (:require [clj-oauth2.client :as oauth2]
             [clj-http.client :as client]
             [cheshire.core :as parse]
@@ -29,5 +30,7 @@
   (response/redirect (:uri auth-request)))
 
 (defn process-auth-response [params]
-  (let [access-token (oauth2/get-access-token facebook-oauth2 params auth-request)]
+  (let [_ (println "auth code received from FB:" (get params "code"))
+        params-as-keys (keywordize-keys params)
+        access-token (oauth2/get-access-token facebook-oauth2 params-as-keys auth-request)]
     (str "Access token is " access-token)))
