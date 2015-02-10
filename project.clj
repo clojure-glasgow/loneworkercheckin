@@ -11,6 +11,10 @@
                            [clj-oauth2 "0.2.0"]
                            [cheshire "5.4.0"]
                            ]
+
+            :profiles {:proxied
+                       {:jvm-opts ["-Dhttp.proxyHost=127.0.0.1" "-Dhttp.proxyPort=8888" "-Dhttps.proxyHost=127.0.0.1" "-Dhttps.proxyPort=8888"]}}
             :plugins [[lein-ring "0.9.1"]]
             :ring {:handler checkin.handler/app
-                   :uberwar-name "loneworkercheckin.war"})
+                   :uberwar-name "loneworkercheckin.war"}
+            :aliases {"run-proxied" ["with-profile" "proxied" "ring" "server"]})
