@@ -2,13 +2,16 @@
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [checkin.routes.facebook :as facebook]))
+            [checkin.routes.auth :as auth]
+            [net.cgrand.enlive-html :as enlive]))
+
+(def login (enlive/html-resource "login.html"))
 
 (defroutes app-routes
            (GET "/" [] "Hello World with Compojure")
            ; TODO: move login routes to specific collection
-           (GET "/login" [] (facebook/login))
-           (GET "/auth_facebook" {params :query-params} (facebook/process-auth-response params))
+           (GET "/login" [] (enlive/emit* login))
+           (GET "/auth/callback" {params :query-params} (auth/process-auth-response params))
            (route/not-found "Not Found"))
 
 (def app
