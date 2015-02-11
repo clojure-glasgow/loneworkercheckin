@@ -3,7 +3,17 @@ Status](https://snap-ci.com/clojure-glasgow/loneworkercheckin/branch/master/buil
 
 # checkin
 
-A Clojure library designed to ... well, that part is up to you.
+“As a lone worker
+
+I want to be able to add diary appointments in advance and share them privately with one or more colleagues (friends or family) and then, at the appropriate time, check-in to confirm that I am where I planned to be
+
+So that my colleagues are informed automatically if I do not check-in and can raise the alarm.”
+
+The Victims Support charity has been focusing on individuals that have been subject to attacks whilst alone in working situations. There has been a significant increase in assaults on lone workers; such as health professionals, sales people, maintenance professionals, estate agents and anyone else who’s workplace isn’t limited to specific locations or where the location is remote and there aren’t any colleagues.
+
+The use of location aware apps has grown significantly recently but they all seem to rely on the publication of location data which may be made available to the general public, using such services has well known privacy implications and security problems including enabling criminals to know when someone is not at home and / or where someone is next due.
+
+A major goal of the project is to protect privacy and be as secure as possible.
 
 ## Usage
 
