@@ -1,5 +1,4 @@
-(ns checkin.email_management
-  )
+(ns checkin.email-management)
 
 (defn add-email [email-address]
   )
