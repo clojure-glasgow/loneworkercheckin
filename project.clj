@@ -11,6 +11,7 @@
                            [cheshire "5.4.0"]
                            [enlive "1.1.5"]
                            [clj-http "1.0.1"]
+                           [clj-jwt "0.0.11"]
                            ]
 
             :profiles {:dev  {:dependencies  [[midje "1.6.3"]]}
