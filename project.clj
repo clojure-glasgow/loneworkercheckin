@@ -8,10 +8,7 @@
                            [ring "1.3.2"]
                            [compojure "1.3.1"]
                            [ring/ring-defaults "0.1.2"]
-                           [cheshire "5.4.0"]
-                           [enlive "1.1.5"]
-                           [clj-http "1.0.1"]
-                           [clj-jwt "0.0.11"]
+                           [friend-oauth2 "0.1.3"]
                            ]
 
             :profiles {:dev  {:dependencies  [[midje "1.6.3"]]}
