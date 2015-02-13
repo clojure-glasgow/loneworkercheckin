@@ -1,7 +1,8 @@
 (ns checkin.auth
   (:use [compojure.core])
   (:require [friend-oauth2.workflow :as oauth2]
-            [friend-oauth2.util :refer [format-config-uri]]))
+            [friend-oauth2.util :refer [format-config-uri]]
+            [cheshire.core :as json]))
 
 (def ^:private client-config
   {:client-id     "eR08QvVSethRbm4lPQLEeg0lBgQXg4Wy"
@@ -10,17 +11,21 @@
 
 (def ^:private uri-config
   {:authentication-uri {:url   "https://loneworker.auth0.com/authorize"
-                        :query {:client_id     (:client-id client-config)
-                                :response_type "code"
-                                :sso           true
-                                :redirect_uri  (format-config-uri client-config)
-                                :scope         "openid name email"}}
+                        :query {:client_id    (:client-id client-config)
+                                :redirect_uri (format-config-uri client-config)}}
 
    :access-token-uri   {:url   "https://loneworker.auth0.com/oauth/token"
                         :query {:client_id     (:client-id client-config)
                                 :client_secret (:client-secret client-config)
-                                :grant_type    "authorization_code"
                                 :redirect_uri  (format-config-uri client-config)}}})
+
+(def ^:private config-auth {:roles #{::user}})
+
+(defn- parse-access-token [response]
+  (let [response-body-json (:body response)
+        response-body-map (json/parse-string response-body-json true)
+        access-token (:access_token response-body-map)]
+    access-token))
 
 (defn- credential-fn
   "Upon successful authentication with the third party, Friend calls
@@ -39,10 +44,12 @@
    :roles    #{::user}})
 
 (def friend-config
-  {:allow-anon? true
-   :workflows   [(oauth2/workflow
-                   {:client-config client-config
-                    :uri-config    uri-config
-                    :credential-fn credential-fn})
-                 ]})
+  {:workflows [(oauth2/workflow
+                 {:client-config        client-config
+                  :uri-config           uri-config
+                  :config-auth          config-auth
+                  :access-token-parsefn parse-access-token
+                  :credential-fn        credential-fn
+                  })
+               ]})
 
