@@ -14,7 +14,8 @@
   {:authentication-uri {:url   "https://loneworker.auth0.com/authorize"
                         :query {:client_id    (:client-id client-config)
                                 :redirect_uri (format-config-uri client-config)
-                                :scope        "openid name email"}}
+                                :scope        "openid name email"
+                                :sso          true}}
 
    :access-token-uri   {:url   "https://loneworker.auth0.com/oauth/token"
                         :query {:client_id     (:client-id client-config)
@@ -32,11 +33,11 @@
   (let [jwt-string (:access-token token)
         jwt (jwt/str->jwt jwt-string)
         user-id (get-in jwt [:claims :sub])                 ; TODO: verify JWT
-        user-name (get-in jwt [:claims :name])]              ; TODO: verify JWT
+        user-name (get-in jwt [:claims :name])]             ; TODO: verify JWT
 
-    {:identity user-id
+    {:identity  user-id
      :user-name user-name
-     :roles    #{:user}}))
+     :roles     #{:user}}))
 
 (def friend-config
   {:workflows [(oauth2/workflow
@@ -47,17 +48,4 @@
                   :credential-fn        credential-fn
                   })
                ]})
-
-;jwt-string (:id_token parsed-response-body)
-;_ (println "raw JWT is " jwt-string)
-;parsed-jwt (str->jwt jwt-string)
-;parsed-jwt
-;
-;(defn process-auth-response [params]
-;  (let [params-as-keys (keywordize-keys params)
-;        code (:code params-as-keys)
-;        jwt (exchange-auth-code-for-token code)
-;        user-id (get-in jwt [:claims :sub]) ; TODO: verify JWT
-;        user-name (get-in jwt [:claims :name])] ; TODO: verify JWT
-;    (str "Hello " user-name ", your user Id is " user-id)))
 
