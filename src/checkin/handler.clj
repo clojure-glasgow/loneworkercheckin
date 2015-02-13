@@ -21,11 +21,11 @@
                              " times.</p><p>The current session: " session "</p>"))
                       (assoc :session session))))
            (GET "/authlink" request
-                (friend/authorize #{::user} "Authorized page."))
+                (friend/authorize #{:user} "Authorized page."))
            (GET "/authlink2" request
-                (friend/authorize #{::user} "Authorized page 2."))
+                (friend/authorize #{:user} "Authorized page 2."))
            (GET "/admin" request
-                (friend/authorize #{::admin} "Only admins can see this page."))
+                (friend/authorize #{:admin} "Only admins can see this page."))
            (friend/logout (ANY "/logout" request (ring.util.response/redirect "/")))
 
            (route/not-found "Not Found"))

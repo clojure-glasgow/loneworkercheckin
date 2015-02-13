@@ -12,7 +12,8 @@
 (def ^:private uri-config
   {:authentication-uri {:url   "https://loneworker.auth0.com/authorize"
                         :query {:client_id    (:client-id client-config)
-                                :redirect_uri (format-config-uri client-config)}}
+                                :redirect_uri (format-config-uri client-config)
+                                :scope        "openid name email"}}
 
    :access-token-uri   {:url   "https://loneworker.auth0.com/oauth/token"
                         :query {:client_id     (:client-id client-config)
@@ -21,11 +22,10 @@
 
 (def ^:private config-auth {:roles #{::user}})
 
-(defn- parse-access-token [response]
+(defn- parse-id-token [response]
   (let [response-body-json (:body response)
-        response-body-map (json/parse-string response-body-json true)
-        access-token (:access_token response-body-map)]
-    access-token))
+        response-body-map (json/parse-string response-body-json true)]
+    (:id_token response-body-map)))
 
 (defn- credential-fn
   "Upon successful authentication with the third party, Friend calls
@@ -41,14 +41,14 @@
   authenticated with the third party the nominal role of ::user."
   [token]
   {:identity token
-   :roles    #{::user}})
+   :roles    #{:user}})
 
 (def friend-config
   {:workflows [(oauth2/workflow
                  {:client-config        client-config
                   :uri-config           uri-config
                   :config-auth          config-auth
-                  :access-token-parsefn parse-access-token
+                  :access-token-parsefn parse-id-token
                   :credential-fn        credential-fn
                   })
                ]})
