@@ -2,7 +2,8 @@
   (:use [compojure.core])
   (:require [friend-oauth2.workflow :as oauth2]
             [friend-oauth2.util :refer [format-config-uri]]
-            [cheshire.core :as json]))
+            [cheshire.core :as json]
+            [clj-jwt.core :as jwt]))
 
 (def ^:private client-config
   {:client-id     "eR08QvVSethRbm4lPQLEeg0lBgQXg4Wy"
@@ -27,21 +28,15 @@
         response-body-map (json/parse-string response-body-json true)]
     (:id_token response-body-map)))
 
-(defn- credential-fn
-  "Upon successful authentication with the third party, Friend calls
-  this function with the user's token. This function is responsible for
-  translating that into a Friend identity map with at least the :identity
-  and :roles keys. How you decide what roles to grant users is up to you;
-  you could e.g. look them up in a database.
+(defn- credential-fn [token]
+  (let [jwt-string (:access-token token)
+        jwt (jwt/str->jwt jwt-string)
+        user-id (get-in jwt [:claims :sub])                 ; TODO: verify JWT
+        user-name (get-in jwt [:claims :name])]              ; TODO: verify JWT
 
-  You can also return nil here if you decide that the token provided
-  is invalid. This could be used to implement e.g. banning users.
-
-  This example code just automatically assigns anyone who has
-  authenticated with the third party the nominal role of ::user."
-  [token]
-  {:identity token
-   :roles    #{:user}})
+    {:identity user-id
+     :user-name user-name
+     :roles    #{:user}}))
 
 (def friend-config
   {:workflows [(oauth2/workflow
@@ -52,4 +47,17 @@
                   :credential-fn        credential-fn
                   })
                ]})
+
+;jwt-string (:id_token parsed-response-body)
+;_ (println "raw JWT is " jwt-string)
+;parsed-jwt (str->jwt jwt-string)
+;parsed-jwt
+;
+;(defn process-auth-response [params]
+;  (let [params-as-keys (keywordize-keys params)
+;        code (:code params-as-keys)
+;        jwt (exchange-auth-code-for-token code)
+;        user-id (get-in jwt [:claims :sub]) ; TODO: verify JWT
+;        user-name (get-in jwt [:claims :name])] ; TODO: verify JWT
+;    (str "Hello " user-name ", your user Id is " user-id)))
 

@@ -9,6 +9,7 @@
                            [compojure "1.3.1"]
                            [friend-oauth2 "0.1.3"]
                            [cheshire "5.4.0"]
+                           [clj-jwt "0.0.11"]
                            ]
 
             :profiles {:dev  {:dependencies  [[midje "1.6.3"]]}

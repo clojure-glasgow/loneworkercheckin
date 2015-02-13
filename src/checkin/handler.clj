@@ -14,11 +14,12 @@
            (GET "/appointment" request (appointment/get request))
 
            (GET "/status" request
-                (let [count (:count (:session request) 0)
-                      session (assoc (:session request) :count (inc count))]
+                (let [session (:session request)
+                      user-identity (:cemerick.friend/identity session)
+                      user-id (:current user-identity)
+                      user-name (get-in user-identity [:authentications user-id :user-name])]
                   (-> (ring.util.response/response
-                        (str "<p>We've hit the session page " (:count session)
-                             " times.</p><p>The current session: " session "</p>"))
+                        (str "<p>The current session: " session "</p><p>Your name is " user-name "</p>"))
                       (assoc :session session))))
            (GET "/authlink" request
                 (friend/authorize #{:user} "Authorized page."))
