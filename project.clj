@@ -11,6 +11,7 @@
                            [cheshire "5.4.0"]
                            [clj-jwt "0.0.11"]
                            [environ "1.0.0"]
+                           [enlive "1.1.5"]
                            [org.clojure/tools.logging "0.3.1"]]
 
             :profiles {:dev {
