@@ -15,7 +15,7 @@
 (def ^:private client-config
   {:client-id     (get-environment-variable :friend-oauth2-client-id)
    :client-secret (get-environment-variable :friend-oauth2-client-secret)
-   :callback {:domain "http://localhost:3000" :path "/auth/callback"}})
+   :callback      {:domain "http://localhost:3000" :path "/auth/callback"}})
 
 
 (def ^:private uri-config
@@ -39,12 +39,10 @@
 
 (defn- credential-fn [token]
   (let [jwt-string (:access-token token)
-        jwt (jwt/str->jwt jwt-string)
-        user-id (get-in jwt [:claims :sub])                 ; TODO: verify JWT
-        user-name (get-in jwt [:claims :name])]             ; TODO: verify JWT
-
-    {:identity  user-id
-     :user-name user-name
+        jwt (jwt/str->jwt jwt-string)]
+    (jwt/verify jwt (get-environment-variable :friend-oauth2-client-secret))
+    {:identity  (get-in jwt [:claims :sub])
+     :user-name (get-in jwt [:claims :name])
      :roles     #{:user}}))
 
 (def friend-config
