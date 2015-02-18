@@ -10,6 +10,7 @@
                            [friend-oauth2 "0.1.3"]
                            [cheshire "5.4.0"]
                            [clj-jwt "0.0.11"]
+                           [environ "0.5.0"]
                            ]
 
             :profiles {:dev  {:dependencies  [[midje "1.6.3"]]}
@@ -17,7 +18,8 @@
                        {:jvm-opts ["-Dhttp.proxyHost=127.0.0.1" "-Dhttp.proxyPort=8888"
                                    "-Dhttps.proxyHost=127.0.0.1" "-Dhttps.proxyPort=8888"]}}
             :plugins [[lein-ring "0.9.1"]
-                      [lein-midje "3.1.3"]]
+                      [lein-midje "3.1.3"]
+                      [lein-environ "1.0.0"]]
             :ring {:handler checkin.handler/app
                    :uberwar-name "loneworkercheckin.war"}
             :aliases {"run-proxied" ["with-profile" "proxied" "ring" "server"]})

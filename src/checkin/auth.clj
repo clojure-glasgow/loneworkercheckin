@@ -3,12 +3,20 @@
   (:require [friend-oauth2.workflow :as oauth2]
             [friend-oauth2.util :refer [format-config-uri]]
             [cheshire.core :as json]
-            [clj-jwt.core :as jwt]))
+            [clj-jwt.core :as jwt]
+            [environ.core :refer [env]]))
+
+(defn get-environment-variable [name-of-env-var]
+  (let [env-var (env name-of-env-var)]
+    (if env-var
+      env-var
+      (throw (Exception. (str "No environment variable found named " name-of-env-var ". Ensure you have a profiles.clj created if running locally"))))))
 
 (def ^:private client-config
-  {:client-id     "eR08QvVSethRbm4lPQLEeg0lBgQXg4Wy"
-   :client-secret "9jNUjATxDFl0FrkbeULttxc1UR1P0tLzBKa1EzPkvHXpSRKI_yof_CBcU1xBRTju" ; TODO these shouldn't be checked in to source control
-   :callback      {:domain "http://localhost:3000" :path "/auth/callback"}})
+  {:client-id     (get-environment-variable :friend-oauth2-client-id)
+   :client-secret (get-environment-variable :friend-oauth2-client-secret)
+   :callback {:domain "http://localhost:3000" :path "/auth/callback"}})
+
 
 (def ^:private uri-config
   {:authentication-uri {:url   "https://loneworker.auth0.com/authorize"
