@@ -6,7 +6,7 @@
             [checkin.routes.appointment :as appointment]
             [cemerick.friend :as friend]
             [friend-oauth2.util :refer [format-config-uri]]
-            [checkin.session-helper :as session-helper]))
+            [checkin.request-helper :as request-helper]))
 
 (defroutes app-routes
            (GET "/" [] "Hello World with Compojure")
@@ -17,7 +17,7 @@
            (GET "/status" request
                 (let [session (:session request)]
                   (-> (ring.util.response/response
-                        (str "<p>The current session: " session "</p><p>Your name is " (session-helper/get-user-name request) "</p>"))
+                        (str "<p>The current session: " session "</p><p>Your name is " (request-helper/get-user-name request) "</p>"))
                       (assoc :session session))))
            (GET "/authlink" request
                 (friend/authorize #{:user} "Authorized page."))
