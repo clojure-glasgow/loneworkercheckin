@@ -20,7 +20,8 @@
             :plugins [[lein-ring "0.9.1"]
                       [lein-midje "3.1.3"]
                       [lein-environ "1.0.0"]
-                      [lein-ancient "0.6.2"]]
+                      [lein-ancient "0.6.2"]
+                      [jonase/eastwood "0.2.1"]]
             :ring {:handler      checkin.handler/app
                    :uberwar-name "loneworkercheckin.war"}
             :aliases {"run-proxied" ["with-profile" "proxied" "ring" "server"]})
