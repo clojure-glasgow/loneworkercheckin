@@ -13,13 +13,14 @@
                            [environ "0.5.0"]
                            [org.clojure/tools.logging "0.3.1"]]
 
-            :profiles {:dev  {:dependencies  [[midje "1.6.3"]]}
+            :profiles {:dev {:dependencies [[midje "1.6.3"]]}
                        :proxied
-                       {:jvm-opts ["-Dhttp.proxyHost=127.0.0.1" "-Dhttp.proxyPort=8888"
-                                   "-Dhttps.proxyHost=127.0.0.1" "-Dhttps.proxyPort=8888"]}}
+                            {:jvm-opts ["-Dhttp.proxyHost=127.0.0.1" "-Dhttp.proxyPort=8888"
+                                        "-Dhttps.proxyHost=127.0.0.1" "-Dhttps.proxyPort=8888"]}}
             :plugins [[lein-ring "0.9.1"]
                       [lein-midje "3.1.3"]
-                      [lein-environ "1.0.0"]]
-            :ring {:handler checkin.handler/app
+                      [lein-environ "1.0.0"]
+                      [lein-ancient "0.6.2"]]
+            :ring {:handler      checkin.handler/app
                    :uberwar-name "loneworkercheckin.war"}
             :aliases {"run-proxied" ["with-profile" "proxied" "ring" "server"]})
