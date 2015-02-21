@@ -6,11 +6,11 @@
             :dependencies [
                            [org.clojure/clojure "1.6.0"]
                            [ring "1.3.2"]
-                           [compojure "1.3.1"]
+                           [compojure "1.3.2"]
                            [friend-oauth2 "0.1.3"]
                            [cheshire "5.4.0"]
                            [clj-jwt "0.0.11"]
-                           [environ "0.5.0"]
+                           [environ "1.0.0"]
                            [org.clojure/tools.logging "0.3.1"]]
 
             :profiles {:dev {:dependencies [[midje "1.6.3"]]}
