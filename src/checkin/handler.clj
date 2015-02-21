@@ -6,7 +6,8 @@
             [checkin.routes.appointment :as appointment]
             [cemerick.friend :as friend]
             [friend-oauth2.util :refer [format-config-uri]]
-            [checkin.request-helper :as request-helper]))
+            [checkin.request-helper :as request-helper]
+            [checkin.middleware :refer [log-request]]))
 
 (defroutes app-routes
            (GET "/" [] "Hello World with Compojure")
@@ -28,8 +29,10 @@
            (friend/logout (ANY "/logout" request (ring.util.response/redirect "/")))
 
            (route/not-found "Not Found"))
+
 (def app
   (handler/site
-    (friend/authenticate
-      app-routes
-      auth/friend-config)))
+    (-> app-routes
+        log-request
+        (friend/authenticate
+          auth/friend-config))))

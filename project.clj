@@ -11,7 +11,7 @@
                            [cheshire "5.4.0"]
                            [clj-jwt "0.0.11"]
                            [environ "0.5.0"]
-                           ]
+                           [org.clojure/tools.logging "0.3.1"]]
 
             :profiles {:dev  {:dependencies  [[midje "1.6.3"]]}
                        :proxied
