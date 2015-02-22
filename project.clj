@@ -21,6 +21,7 @@
                       [lein-midje "3.1.3"]
                       [lein-environ "1.0.0"]
                       [lein-ancient "0.6.2"]
+                      [lein-kibit "0.0.8"]
                       [jonase/eastwood "0.2.1"]]
             :ring {:handler      checkin.handler/app
                    :uberwar-name "loneworkercheckin.war"}
