@@ -1,5 +1,4 @@
-(ns checkin.request-helper
-    (:require [cemerick.friend :as friend]))
+(ns checkin.request-helper)
 
 (defn- get-user-identity [request]
 (let [session (:session request)
