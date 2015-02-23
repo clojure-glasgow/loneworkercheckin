@@ -15,7 +15,7 @@
 (def ^:private client-config
   {:client-id     (get-environment-variable :friend-oauth2-client-id)
    :client-secret (get-environment-variable :friend-oauth2-client-secret)
-   :callback      {:domain "http://localhost:3000" :path "/auth/callback"}})
+   :callback      {:domain (get-environment-variable :app-domain) :path "/auth/callback"}})
 
 
 (def ^:private uri-config

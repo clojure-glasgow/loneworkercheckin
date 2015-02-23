@@ -13,7 +13,9 @@
                            [environ "1.0.0"]
                            [org.clojure/tools.logging "0.3.1"]]
 
-            :profiles {:dev {:dependencies [[midje "1.6.3"]]}
+            :profiles {:dev {
+                             :dependencies [[midje "1.6.3"]]
+                             :env          {:app-domain "http://localhost:3000"}}
                        :proxied
                             {:jvm-opts ["-Dhttp.proxyHost=127.0.0.1" "-Dhttp.proxyPort=8888"
                                         "-Dhttps.proxyHost=127.0.0.1" "-Dhttps.proxyPort=8888"]}}
