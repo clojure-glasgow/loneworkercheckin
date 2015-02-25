@@ -27,5 +27,5 @@
                       [lein-kibit "0.0.8"]
                       [jonase/eastwood "0.2.1"]]
             :ring {:handler      checkin.handler/app
-                   :uberwar-name "ROOT.war"}
+                   :uberwar-name "loneworkercheckin.war"}
             :aliases {"run-proxied" ["with-profile" "proxied" "ring" "server"]})
