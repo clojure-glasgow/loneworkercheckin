@@ -5,6 +5,7 @@
             [clojure.tools.logging :as log]
             [checkin.auth :as auth]
             [checkin.routes.appointment :as appointment]
+            [cemerick.friend :as friend]
             [environ.core :refer [env]]
             [checkin.request-helper :as request-helper]
             [checkin.middleware :refer [log-request]]))
