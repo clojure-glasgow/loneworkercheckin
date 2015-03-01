@@ -3,8 +3,9 @@
             :url "http://example.com/FIXME"
             :license {:name "Eclipse Public License"
                       :url  "http://www.eclipse.org/legal/epl-v10.html"}
-            :dependencies [
-                           [org.clojure/clojure "1.6.0"]
+            :dependencies [[org.clojure/clojure "1.6.0"]
+                           [org.slf4j/slf4j-api "1.7.10"]
+                           [ch.qos.logback/logback-classic "1.1.2"]
                            [ring "1.3.2"]
                            [compojure "1.3.2"]
                            [friend-oauth2 "0.1.3"]
@@ -14,8 +15,7 @@
                            [enlive "1.1.5"]
                            [org.clojure/tools.logging "0.3.1"]]
 
-            :profiles {:dev {
-                             :dependencies [[midje "1.6.3"]]
+            :profiles {:dev {:dependencies [[midje "1.6.3"]]
                              :env          {:app-domain "http://localhost:3000"}}
                        :proxied
                             {:jvm-opts ["-Dhttp.proxyHost=127.0.0.1" "-Dhttp.proxyPort=8888"

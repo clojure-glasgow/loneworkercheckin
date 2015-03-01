@@ -2,10 +2,10 @@
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [compojure.handler :as handler]
+            [clojure.tools.logging :as log]
             [checkin.auth :as auth]
             [checkin.routes.appointment :as appointment]
-            [cemerick.friend :as friend]
-            [friend-oauth2.util :refer [format-config-uri]]
+            [environ.core :refer [env]]
             [checkin.request-helper :as request-helper]
             [checkin.middleware :refer [log-request]]))
 
@@ -34,5 +34,4 @@
   (handler/site
     (-> app-routes
         log-request
-        (friend/authenticate
-          auth/friend-config))))
+        (auth/authentication-middleware))))
