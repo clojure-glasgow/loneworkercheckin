@@ -1,4 +1,4 @@
-(ns checkin.routes.appointment
+(ns checkin.appointment
   (:use [compojure.core]
         [clojure.walk])
   (:require [cheshire.core :as parse]
