@@ -5,6 +5,7 @@
             [clojure.tools.logging :as log]
             [checkin.auth :as auth]
             [checkin.appointment :as appointment]
+            [checkin.email-management :as email]
             [cemerick.friend :as friend]
             [environ.core :refer [env]]
             [checkin.request-helper :as request-helper]
@@ -16,6 +17,9 @@
 
            (POST "/appointment" request (appointment/add request))
            (GET "/appointment" request (appointment/get request))
+
+           (GET "/email/new" request (email/new))
+           (POST "/email" request (email/added request))
 
            (GET "/status" request
                 (let [session (:session request)]

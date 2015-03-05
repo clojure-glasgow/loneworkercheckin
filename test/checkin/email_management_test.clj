@@ -1,15 +1,20 @@
 (ns checkin.email-management-test
   (:require [midje.sweet :refer :all]
-            [checkin.email-management :as email]))
+            [checkin.handler :refer :all]))
 
-(fact "When I add an email address it should be valid and return 201"
-      (email/add-email "ballbag@example.com") => [201]
+(facts "about email routes"
+       (fact "should return 200 on add email page"
+             (:status (app {:uri            "/email/new"
+                            :request-method :get})) => 200))
 
-      )
+(facts "about email routes"
+       (fact "should return 201 on add email"
+             (:status (app {:uri            "/email"
+                            :params         {:email "andy@example.com"}
+                            :request-method :post})) => 201))
 
-(fact "When I add an email address that is invalid, it should return 500"
-      (email/add-email "blahblah" ) => [500]
-      (email/add-email "ballbag#example.com") => [500]
-      (email/add-email "") => [500]
-      )
-
+(facts "about email routes"
+       (fact "should return 500 on add email with invalid email"
+             (:status (app {:uri            "/email"
+                            :params         {:email "broken"}
+                            :request-method :post})) => 422))
