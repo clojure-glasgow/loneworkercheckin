@@ -8,10 +8,11 @@
             [cemerick.friend :as friend]
             [environ.core :refer [env]]
             [checkin.request-helper :as request-helper]
-            [checkin.middleware :refer [log-request]]))
+            [checkin.middleware :refer [log-request]]
+            [checkin.profile-handler :as profile-handler]))
 
 (defroutes app-routes
-           (GET "/" [] "Hello World with Compojure")
+           (GET "/" [] "Hello World with Compojure - try /register?name=me&email=me@email.com")
 
            (POST "/appointment" request (appointment/add request))
            (GET "/appointment" request (appointment/get request))
@@ -19,7 +20,7 @@
            (GET "/status" request
                 (let [session (:session request)]
                   (-> (ring.util.response/response
-                        (str "<p>The current session: " session "</p><p>Your name is " (request-helper/get-user-name request) "</p>"))
+                        (str "<p>The current session: " session "</p><p>Your name is " (request-helper/get-user-name request) "</p><p>" @checkin.userprofiles/profiles))
                       (assoc :session session))))
            (GET "/authlink" request
                 (friend/authorize #{:user} "Authorized page."))
@@ -27,6 +28,8 @@
                 (friend/authorize #{:user} "Authorized page 2."))
            (GET "/admin" request
                 (friend/authorize #{:admin} "Only admins can see this page."))
+           (GET "/register" [name email :as req]
+                (friend/authorize #{:user} (profile-handler/create req name email)))
            (friend/logout (ANY "/logout" request (ring.util.response/redirect "/")))
 
            (route/not-found "Not Found"))
