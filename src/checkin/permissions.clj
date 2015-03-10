@@ -7,6 +7,5 @@
   (has-permission? :notify permissions-set))
 
 (defn addresses-to-notify
-  [person]
-  (let [friends (:friends person)]
-    (into {} (filter has-notify-permission? friends))))
+  [contacts]
+    (into {} (filter has-notify-permission? contacts)))
