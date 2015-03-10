@@ -2,17 +2,57 @@
 (:require [midje.sweet :refer :all]
           [checkin.profile :refer :all]))
 
-(def some-user {:friends {"email1@example.com" #{:include-appointments}
-                          "email2@example.com" #{}
-                          "email3@example.com" #{:include-appointments}
-                          "email4@example.com" #{:notify}}})
+(def default-contacts {"contact1@email.com" #{} } )
+(def default-appointments '())
 
-(def people {"profile1" some-user })
+(def default-profile
+  {
+     :userkey      "default-user-key"
+     :name         "default"
+     :email        "default@email.com"
+     :contacts     default-contacts
+     :appointments default-appointments})
 
-(facts "about changing profile state"
-       (fact "should add a new profile to a map of profiles"
-             (add-profile people {"newProfile" {}})
-             => {"profile1" some-user "newProfile" {}}
-             )
+
+
+(facts "manipulating a profile"
+
+       (fact "should creates and returns a boiler plate data map of profile"
+               (create-profile "user-key" "username" "username@email.com")
+               => { :userkey  "user-key"
+                    :contacts '()
+                    :appointments '()
+                    :email "username@email.com"
+                    :name "username" })
+
+       (fact "should fetch the contacts from a profile"
+             (get-contacts-from-profile default-profile)
+             => default-contacts)
+       
+       (fact "should fetch the list of appointments from a profile"
+             (get-appointments-from-profile default-profile)
+             => default-appointments)
+       
+       (fact "should take a contact and a profile and return a new map containing the original profile data and the contact"
+             (add-contact-to-profile default-profile "test@email.com" #{})
+             => {
+                   :userkey      "default-user-key"
+                   :name         "default"
+                   :email        "default@email.com"
+                   :contacts     {"contact1@email.com" #{}
+                                  "test@email.com" #{} }
+                   :appointments '()})
+
+       (future-fact "should take an appointment and a profile and return a new map containing the original profile data and the appointment"
+             (add-contact-to-profile default-profile "test@email.com" #{})
+             => {
+                   :userkey      "default-user-key"
+                   :name         "default"
+                   :email        "default@email.com"
+                   :contacts     {"contact1@email.com" #{}}
+                   :appointments '()})
+
        )
+
+
 
