@@ -46,5 +46,5 @@
         log-request
         (auth/authentication-middleware))))
 
-(defn main- [& args]
+(defn -main [& args]
   (run-jetty app {:port 3000}))
