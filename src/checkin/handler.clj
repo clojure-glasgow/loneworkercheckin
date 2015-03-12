@@ -10,7 +10,9 @@
             [environ.core :refer [env]]
             [checkin.request-helper :as request-helper]
             [checkin.middleware :refer [log-request]]
-            [checkin.profile-handler :as profile-handler]))
+            [checkin.profile-handler :as profile-handler]
+            [ring.adapter.jetty :refer [run-jetty]])
+  (:gen-class))
 
 (defroutes app-routes
            (GET "/" [] "Hello World with Compojure - try /register?name=me&email=me@email.com")
@@ -43,3 +45,6 @@
     (-> app-routes
         log-request
         (auth/authentication-middleware))))
+
+(defn -main [& args]
+  (run-jetty app {:port 3000}))

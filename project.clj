@@ -28,4 +28,5 @@
                       [jonase/eastwood "0.2.1"]]
             :ring {:handler      checkin.handler/app
                    :uberwar-name "loneworkercheckin.war"}
+            :main checkin.handler
             :aliases {"run-proxied" ["with-profile" "proxied" "ring" "server"]})
