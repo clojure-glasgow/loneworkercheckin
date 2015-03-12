@@ -19,7 +19,8 @@
                              :env          {:app-domain "http://localhost:3000"}}
                        :proxied
                             {:jvm-opts ["-Dhttp.proxyHost=127.0.0.1" "-Dhttp.proxyPort=8888"
-                                        "-Dhttps.proxyHost=127.0.0.1" "-Dhttps.proxyPort=8888"]}}
+                                        "-Dhttps.proxyHost=127.0.0.1" "-Dhttps.proxyPort=8888"]}
+                       :uberjar {:main checkin.handler :aot :all}}
             :plugins [[lein-ring "0.9.1"]
                       [lein-midje "3.1.3"]
                       [lein-environ "1.0.0"]
@@ -28,5 +29,4 @@
                       [jonase/eastwood "0.2.1"]]
             :ring {:handler      checkin.handler/app
                    :uberwar-name "loneworkercheckin.war"}
-            :main checkin.handler
             :aliases {"run-proxied" ["with-profile" "proxied" "ring" "server"]})
