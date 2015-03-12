@@ -18,7 +18,7 @@
            (GET "/" [] "Hello World with Compojure - try /register?name=me&email=me@email.com")
 
            (POST "/appointment" request (appointment/add request))
-           (GET "/appointment" request (appointment/get request))
+           (GET "/appointment" request (appointment/render request))
 
            (GET "/email/new" request (email/new))
            (POST "/email" request (email/added request))
