@@ -14,6 +14,9 @@
              [:li#profile-email] (enlive/content (:email profile)) ))
 
 (defn create [req name email]
-  (let [profile (profile/create-profile (request-helper/get-user-id req) name email)]
-    (profiles/upsert-profiles profile) 
-    (enlive/emit* (transform profile))))
+  (let [profile
+    (-> (request-helper/get-user-id req)
+        (profile/create-profile name email))]
+    (profiles/upsert-profiles profile)
+    (-> (transform profile)
+        (enlive/emit*))))

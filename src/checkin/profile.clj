@@ -18,7 +18,13 @@
 (defn get-appointments-from-profile [profile] 
   (:appointments profile))
 
-(defn add-contact-to-profile [profile contact-email permission-set]
+(defn add-contact-to-profile-old [profile contact-email permission-set]
   ( merge profile {:contacts (conj (get-contacts-from-profile profile) (hash-map contact-email permission-set))}))
+
+(defn add-contact-to-profile [profile contact-email permission-set]
+  (->> (hash-map contact-email permission-set)
+       (conj (get-contacts-from-profile profile))
+       (hash-map :contacts)
+       (merge profile)))
 
 (defn add-appointment-to-profile [profile appointment] (""))
