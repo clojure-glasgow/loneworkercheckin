@@ -2,7 +2,6 @@
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [compojure.handler :as handler]
-            [clojure.tools.logging :as log]
             [checkin.auth :as auth]
             [checkin.appointment :as appointment]
             [checkin.email-management :as email]
@@ -47,4 +46,6 @@
         (auth/authentication-middleware))))
 
 (defn -main [& args]
-  (run-jetty app {:port 3000}))
+  (run-jetty app {:port (or (-> (System/getenv "PORT")
+                                (Integer/parseInt))
+                            3000)}))
