@@ -1,1 +1,1 @@
-web: java $JVM_OPTS -cp target/loneworkercheckin.jar 
+web: java $JVM_OPTS -jar target/checkin.jar
