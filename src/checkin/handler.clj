@@ -46,6 +46,5 @@
         (auth/authentication-middleware))))
 
 (defn -main [& args]
-  (run-jetty app {:port (or (-> (System/getenv "PORT")
-                                (Integer/parseInt))
-                            3000)}))
+  (run-jetty app {:port (Integer/parseInt (or (System/getenv "PORT")
+                                              "3000"))}))
