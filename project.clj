@@ -20,7 +20,7 @@
                        :proxied
                             {:jvm-opts ["-Dhttp.proxyHost=127.0.0.1" "-Dhttp.proxyPort=8888"
                                         "-Dhttps.proxyHost=127.0.0.1" "-Dhttps.proxyPort=8888"]}
-                       :uberjar {:main checkin.handler :aot :all}}
+                       :uberjar {:main checkin.handler :aot :all :name "loneworkercheckin.jar"}}
             :plugins [[lein-ring "0.9.1"]
                       [lein-midje "3.1.3"]
                       [lein-environ "1.0.0"]
