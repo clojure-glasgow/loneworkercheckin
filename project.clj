@@ -11,7 +11,7 @@
                            [compojure "1.3.2"]
                            [friend-oauth2 "0.1.3"]
                            [cheshire "5.4.0"]
-                           [clj-jwt "0.0.11"]
+                           [clj-jwt "0.0.12"]
                            [environ "1.0.0"]
                            [enlive "1.1.5"]
                            [org.clojure/tools.logging "0.3.1"]]
