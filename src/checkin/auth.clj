@@ -59,9 +59,5 @@
                     :credential-fn        (-> client-config :client-secret credential-fn-for-secret)})]}))
 
 (defn authentication-middleware [handler]
-  (if (or (= (env :environment) "DEVELOPMENT")
-          (= (env :ci) "true"))
-    (do (log/warn "!!! Environment is set to DEVELOPMENT. Bypassing authentication checks.")
-        handler)
-    (friend/authenticate handler (friend-config client-config-fn))))
+    (friend/authenticate handler (friend-config client-config-fn)))
 
