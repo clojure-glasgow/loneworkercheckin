@@ -20,7 +20,7 @@
                  :userkey      "default-user-key"
                  :name         "default"
                  :email        "default@email.com"
-                 :contacts     {"contact1@email.com" #{} }
+                 :contacts     {"contact1@email.com" #{}}
                  :appointments '()
                  })
 

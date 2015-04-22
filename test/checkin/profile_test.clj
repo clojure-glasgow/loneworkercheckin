@@ -2,7 +2,7 @@
 (:require [midje.sweet :refer :all]
           [checkin.profile :refer :all]))
 
-(def default-contacts {"contact1@email.com" #{} } )
+(def default-contacts {"contact1@email.com" #{}})
 (def default-appointments '())
 
 (def default-profile
@@ -20,7 +20,7 @@
        (fact "should creates and returns a boiler plate data map of profile"
                (create-profile "user-key" "username" "username@email.com")
                => { :userkey  "user-key"
-                    :contacts '()
+                    :contacts {}
                     :appointments '()
                     :email "username@email.com"
                     :name "username" })
@@ -39,8 +39,7 @@
                    :userkey      "default-user-key"
                    :name         "default"
                    :email        "default@email.com"
-                   :contacts     {"contact1@email.com" #{}
-                                  "test@email.com" #{} }
+                   :contacts     {"test@email.com" #{}, "contact1@email.com" #{}}
                    :appointments '()})
 
        (future-fact "should take an appointment and a profile and return a new map containing the original profile data and the appointment"
@@ -49,7 +48,7 @@
                    :userkey      "default-user-key"
                    :name         "default"
                    :email        "default@email.com"
-                   :contacts     {"contact1@email.com" #{}}
+                   :contacts     {"test@email.com" #{}, "contact1@email.com" #{}}
                    :appointments '()})
 
        )

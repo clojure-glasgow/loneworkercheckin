@@ -9,7 +9,7 @@
 
 
 (defn create-profile [userkey, name, email]
-  (hash-map :userkey userkey :name name :email email :contacts '() :appointments '()))
+  (hash-map :userkey userkey :name name :email email :contacts {} :appointments '()))
 
 
 (defn get-contacts-from-profile [profile] 

@@ -19,8 +19,9 @@
            (POST "/appointment" request (appointment/add request))
            (GET "/appointment" request (appointment/render request))
 
-           (GET "/email/new" request (email/new))
-           (POST "/email" request (email/added request))
+           (GET "/email/new" request (email/new-email))
+           (POST "/email" request
+                 (friend/authorize #{:user} (email/add request)))
 
            (GET "/status" request
                 (let [session (:session request)]

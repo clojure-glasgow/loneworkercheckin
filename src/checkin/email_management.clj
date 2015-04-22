@@ -1,5 +1,8 @@
 (ns checkin.email-management
-  (:require [checkin.middleware :as helper]))
+  (:require [checkin.request-helper :as request-helper]
+    [checkin.userprofiles :as userprofiles]
+    [checkin.profile :as profile]
+    ))
 
 (defn email-valid? [email-address]
   (re-matches #"\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b" email-address))
@@ -12,13 +15,23 @@
   {:status 201
    :body   (concat "Successfully added email: " email)})
 
-(defn new []
-  (slurp "resources/new-email.html"))
+(defn new-email []
+    (slurp "resources/new-email.html"))
 
-(defn added [request]
-  (helper/log-request request)
-  (let [email (:email (:params request))]
+(defn persist-and-created [new-profile email]
+  (userprofiles/upsert-profiles new-profile)
+  (created email))
+
+
+(defn add [request]
+  (let [email (:email (:params request))
+        user-key (request-helper/get-user-id request)
+        profile (userprofiles/get-profile user-key)
+        new-profile (profile/add-contact-to-profile profile email #{})]
     (if (email-valid? email)
-      (created email)
-      (validation-error email))))
+      (persist-and-created  new-profile email)
+      (validation-error email))
+ ))
+
+
 
