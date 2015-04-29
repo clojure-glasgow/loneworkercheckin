@@ -10,11 +10,14 @@
             [checkin.request-helper :as request-helper]
             [checkin.middleware :refer [log-request]]
             [checkin.profile-handler :as profile-handler]
-            [ring.adapter.jetty :refer [run-jetty]])
+            [ring.adapter.jetty :refer [run-jetty]]
+            [net.cgrand.enlive-html :as enlive])
   (:gen-class))
 
 (defroutes app-routes
-           (GET "/" [] "Hello World with Compojure - try /register?name=me&email=me@email.com")
+           ;(GET "/" [] "Hello World with Compojure - try /register?name=me&email=me@email.com")
+
+           (GET "/" [] (enlive/emit* (enlive/at (enlive/html-resource "main-template.html") [:abc] (enlive/content (str "")))))
 
            (POST "/appointment" request (appointment/add request))
            (GET "/appointment" request (appointment/render request))
@@ -37,7 +40,7 @@
            (GET "/register" [name email :as req]
                 (friend/authorize #{:user} (profile-handler/create req name email)))
            (friend/logout (ANY "/logout" request (ring.util.response/redirect "/")))
-
+           
            (route/not-found "Not Found"))
 
 (def app

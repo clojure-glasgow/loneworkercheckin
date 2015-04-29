@@ -14,7 +14,8 @@
                            [clj-jwt "0.0.12"]
                            [environ "1.0.0"]
                            [enlive "1.1.5"]
-                           [org.clojure/tools.logging "0.3.1"]]
+                           [org.clojure/tools.logging "0.3.1"]
+                           [clj-time "0.9.0"]]
 
             :profiles {:dev {:dependencies [[midje "1.6.3"]]
                              :env          {:app-domain "http://localhost:3000"}}

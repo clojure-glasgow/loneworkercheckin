@@ -1,9 +1,7 @@
 (ns checkin.profile-handler 
   (:use [compojure.core]
         [clojure.walk])
-  (:require [cheshire.core :as parse]
-            [ring.util.response :as response]
-            [net.cgrand.enlive-html :as enlive]
+  (:require [net.cgrand.enlive-html :as enlive]
             [checkin.profile :as profile]
             [checkin.userprofiles :as profiles]
             [checkin.request-helper :as request-helper]))
@@ -13,6 +11,7 @@
              [:li#profile-name]  (enlive/content (:name  profile))
              [:li#profile-email] (enlive/content (:email profile)) ))
 
+;This function would be much better if upsert-profiles returned a profile
 (defn create [req name email]
   (let [profile
     (-> (request-helper/get-user-id req)
