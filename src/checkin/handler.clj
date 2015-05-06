@@ -15,8 +15,6 @@
   (:gen-class))
 
 (defroutes app-routes
-           ;(GET "/" [] "Hello World with Compojure - try /register?name=me&email=me@email.com")
-
            (GET "/" [] (enlive/emit* (enlive/at (enlive/html-resource "main-template.html") [:abc] (enlive/content (str "")))))
 
            (POST "/appointment" request (appointment/add request))
@@ -40,8 +38,9 @@
            (GET "/register" [name email :as req]
                 (friend/authorize #{:user} (profile-handler/create req name email)))
            (friend/logout (ANY "/logout" request (ring.util.response/redirect "/")))
-           
+
            (route/not-found "Not Found"))
+           (route/files "/" {:root "./resources/public"})
 
 (def app
   (handler/site
