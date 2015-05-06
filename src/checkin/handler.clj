@@ -39,8 +39,8 @@
                 (friend/authorize #{:user} (profile-handler/create req name email)))
            (friend/logout (ANY "/logout" request (ring.util.response/redirect "/")))
 
-           (route/not-found "Not Found"))
            (route/files "/" {:root "./resources/public"})
+           (route/not-found "Not Found"))
 
 (def app
   (handler/site
