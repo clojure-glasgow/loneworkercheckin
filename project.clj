@@ -5,10 +5,10 @@
             :license {:name "Eclipse Public License"
                       :url  "http://www.eclipse.org/legal/epl-v10.html"}
             :dependencies [[org.clojure/clojure "1.6.0"]
-                           [org.slf4j/slf4j-api "1.7.10"]
-                           [ch.qos.logback/logback-classic "1.1.2"]
+                           [org.slf4j/slf4j-api "1.7.12"]
+                           [ch.qos.logback/logback-classic "1.1.3"]
                            [ring "1.3.2"]
-                           [compojure "1.3.2"]
+                           [compojure "1.3.4"]
                            [friend-oauth2 "0.1.3"]
                            [cheshire "5.4.0"]
                            [clj-jwt "0.0.12"]
